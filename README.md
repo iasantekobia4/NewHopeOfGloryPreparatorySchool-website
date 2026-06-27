@@ -1,727 +1,462 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NHOGPS School - Quality Education</title>
-    <style>
-        /* ==================== RESET & GENERAL STYLES ==================== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
-
-        /* ==================== HEADER & NAVIGATION ==================== */
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .school-name {
-            font-size: 1.8rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-
-        /* Navigation Menu */
-        nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-        }
-
-        nav a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        /* Hamburger Menu for Mobile */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: white;
-            margin: 5px 0;
-            transition: all 0.3s ease;
-        }
-
-        /* Mobile Menu Toggle */
-        nav.active {
-            flex-direction: column;
-            position: absolute;
-            top: 70px;
-            right: 20px;
-            background: #667eea;
-            padding: 1rem;
-            border-radius: 8px;
-            gap: 0.5rem;
-            width: 200px;
-        }
-
-        /* ==================== SECTIONS & LAYOUT ==================== */
-        .section {
-            display: none;
-            min-height: calc(100vh - 70px);
-            padding: 3rem 20px;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* ==================== HOME SECTION ==================== */
-        #home {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .banner-content h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            animation: slideDown 0.8s ease;
-        }
-
-        .banner-content p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: white;
-            color: #667eea;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .btn:hover {
-            background-color: #f0f0f0;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        /* ==================== ABOUT SECTION ==================== */
-        #about {
-            background-color: #f8f9fa;
-        }
-
-        .section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: #667eea;
-            text-align: center;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-text h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #764ba2;
-        }
-
-        .about-text p {
-            margin-bottom: 1rem;
-            font-size: 1.05rem;
-            line-height: 1.8;
-        }
-
-        .highlights {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .highlight-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .highlight-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.2);
-        }
-
-        .highlight-card h4 {
-            color: #667eea;
-            margin-bottom: 0.5rem;
-        }
-
-        /* ==================== COURSES SECTION ==================== */
-        #courses {
-            background-color: white;
-        }
-
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .course-card {
-            background: white;
-            border: 2px solid #667eea;
-            border-radius: 8px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .course-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.3);
-            border-color: #764ba2;
-        }
-
-        .course-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .course-card h3 {
-            color: #667eea;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .course-card p {
-            color: #666;
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        .course-btn {
-            background-color: #667eea;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: bold;
-        }
-
-        .course-btn:hover {
-            background-color: #764ba2;
-            transform: scale(1.05);
-        }
-
-        /* ==================== CONTACT SECTION ==================== */
-        #contact {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        }
-
-        .contact-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 5px;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 8px rgba(102, 126, 234, 0.2);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .error {
-            color: #e74c3c;
-            font-size: 0.9rem;
-            margin-top: 0.3rem;
-            display: none;
-        }
-
-        .error.show {
-            display: block;
-        }
-
-        .submit-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        /* ==================== FOOTER ==================== */
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-        }
-
-        /* ==================== RESPONSIVE DESIGN ==================== */
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            nav {
-                display: none;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            nav.active {
-                display: flex;
-            }
-
-            .school-name {
-                font-size: 1.5rem;
-            }
-
-            .banner-content h1 {
-                font-size: 2rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .highlights {
-                grid-template-columns: 1fr;
-            }
-
-            .courses-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .section h2 {
-                font-size: 2rem;
-            }
-
-            nav a {
-                font-size: 0.9rem;
-                padding: 0.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .banner-content h1 {
-                font-size: 1.5rem;
-            }
-
-            .banner-content p {
-                font-size: 1rem;
-            }
-
-            .section {
-                padding: 2rem 15px;
-            }
-
-            .contact-container {
-                padding: 1.5rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- ==================== HEADER ==================== -->
-    <header>
-        <div class="header-container">
-            <div class="school-name">NHOGPS School</div>
-            <!-- Navigation Menu -->
-            <nav id="nav-menu">
-                <a href="#" onclick="showSection('home')">Home</a>
-                <a href="#" onclick="showSection('about')">About</a>
-                <a href="#" onclick="showSection('courses')">Courses</a>
-                <a href="#" onclick="showSection('contact')">Contact</a>
-            </nav>
-            <!-- Hamburger Menu for Mobile -->
-            <div class="hamburger" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </header>
-
-    <!-- ==================== HOME SECTION ==================== -->
-    <section id="home" class="section active">
-        <div class="banner-content">
-            <h1>Welcome to NHOGPS School</h1>
-            <p>Quality Education for a Bright Future</p>
-            <button class="btn" onclick="showWelcome()">Click Here to Get Started</button>
-        </div>
-    </section>
-
-    <!-- ==================== ABOUT SECTION ==================== -->
-    <section id="about" class="section">
-        <div class="container">
-            <h2>About Our School</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Our Mission</h3>
-                    <p>
-                        At NHOGPS School, we are dedicated to providing quality education that empowers students to achieve their full potential. We believe in nurturing not just academic excellence, but also fostering creativity, critical thinking, and character development.
-                    </p>
-                    <p>
-                        Our experienced faculty and modern facilities ensure that every student receives personalized attention and the best learning experience possible.
-                    </p>
-                </div>
-                <div class="highlights">
-                    <div class="highlight-card">
-                        <h4>📚 Expert Faculty</h4>
-                        <p>Highly qualified and experienced teachers</p>
-                    </div>
-                    <div class="highlight-card">
-                        <h4>🏆 Excellence</h4>
-                        <p>Consistent academic achievements</p>
-                    </div>
-                    <div class="highlight-card">
-                        <h4>🌍 Global Standards</h4>
-                        <p>International curriculum and practices</p>
-                    </div>
-                    <div class="highlight-card">
-                        <h4>💡 Innovation</h4>
-                        <p>Modern teaching methods and technology</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== COURSES SECTION ==================== -->
-    <section id="courses" class="section">
-        <div class="container">
-            <h2>Our Courses</h2>
-            <div class="courses-grid">
-                <!-- Mathematics Course -->
-                <div class="course-card">
-                    <div class="course-icon">🔢</div>
-                    <h3>Mathematics</h3>
-                    <p>Master fundamental and advanced mathematical concepts. Develop problem-solving skills and logical thinking.</p>
-                    <button class="course-btn">Learn More</button>
-                </div>
-
-                <!-- Science Course -->
-                <div class="course-card">
-                    <div class="course-icon">🔬</div>
-                    <h3>Science</h3>
-                    <p>Explore physics, chemistry, and biology through interactive experiments and hands-on learning experiences.</p>
-                    <button class="course-btn">Learn More</button>
-                </div>
-
-                <!-- English Course -->
-                <div class="course-card">
-                    <div class="course-icon">📖</div>
-                    <h3>English</h3>
-                    <p>Develop communication skills, improve writing abilities, and explore literature from around the world.</p>
-                    <button class="course-btn">Learn More</button>
-                </div>
-
-                <!-- Computer Science Course -->
-                <div class="course-card">
-                    <div class="course-icon">💻</div>
-                    <h3>Computer Science</h3>
-                    <p>Learn programming, web development, and digital literacy for the modern technological world.</p>
-                    <button class="course-btn">Learn More</button>
-                </div>
-
-                <!-- Arts Course -->
-                <div class="course-card">
-                    <div class="course-icon">🎨</div>
-                    <h3>Arts</h3>
-                    <p>Express creativity through painting, drawing, and sculpture. Explore the world of visual arts.</p>
-                    <button class="course-btn">Learn More</button>
-                </div>
-
-                <!-- Physical Education Course -->
-                <div class="course-card">
-                    <div class="course-icon">⚽</div>
-                    <h3>Physical Education</h3>
-                    <p>Build a healthy lifestyle through sports, fitness activities, and teamwork development.</p>
-                    <button class="course-btn">Learn More</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== CONTACT SECTION ==================== -->
-    <section id="contact" class="section">
-        <div class="container">
-            <h2>Get In Touch</h2>
-            <div class="contact-container">
-                <form id="contact-form" onsubmit="handleFormSubmit(event)">
-                    <!-- Name Field -->
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" placeholder="Enter your full name">
-                        <span class="error" id="name-error">Please enter your name</span>
-                    </div>
-
-                    <!-- Email Field -->
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" placeholder="Enter your email">
-                        <span class="error" id="email-error">Please enter a valid email</span>
-                    </div>
-
-                    <!-- Message Field -->
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" placeholder="Write your message here..."></textarea>
-                        <span class="error" id="message-error">Please enter your message</span>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== FOOTER ==================== -->
-    <footer>
-        <p>&copy; 2024 NHOGPS School. All rights reserved. | Quality Education for a Bright Future</p>
-    </footer>
-
-    <!-- ==================== JAVASCRIPT ==================== -->
-    <script>
-        // ==================== SECTION NAVIGATION ====================
-        /**
-         * Show a specific section and hide others
-         * @param {string} sectionId - The ID of the section to show
-         */
-        function showSection(sectionId) {
-            // Get all sections
-            const sections = document.querySelectorAll('.section');
-            
-            // Hide all sections
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Show the selected section
-            const selectedSection = document.getElementById(sectionId);
-            if (selectedSection) {
-                selectedSection.classList.add('active');
-            }
-            
-            // Close mobile menu after clicking
-            closeMenu();
-        }
-
-        // ==================== MOBILE MENU TOGGLE ====================
-        /**
-         * Toggle the mobile navigation menu
-         */
-        function toggleMenu() {
-            const navMenu = document.getElementById('nav-menu');
-            navMenu.classList.toggle('active');
-        }
-
-        /**
-         * Close the mobile menu
-         */
-        function closeMenu() {
-            const navMenu = document.getElementById('nav-menu');
-            navMenu.classList.remove('active');
-        }
-
-        // ==================== FORM VALIDATION ====================
-        /**
-         * Validate email format
-         * @param {string} email - Email to validate
-         * @returns {boolean} - True if email is valid
-         */
-        function isValidEmail(email) {
-            // Regular expression for basic email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
-
-        /**
-         * Handle form submission and validation
-         * @param {Event} event - Form submission event
-         */
-        function handleFormSubmit(event) {
-            event.preventDefault(); // Prevent default form submission
-
-            // Get form inputs
-            const nameInput = document.getElementById('name');
-            const emailInput = document.getElementById('email');
-            const messageInput = document.getElementById('message');
-
-            // Get error elements
-            const nameError = document.getElementById('name-error');
-            const emailError = document.getElementById('email-error');
-            const messageError = document.getElementById('message-error');
-
-            // Reset errors
-            nameError.classList.remove('show');
-            emailError.classList.remove('show');
-            messageError.classList.remove('show');
-
-            let isValid = true;
-
-            // Validate name (check if not empty)
-            if (nameInput.value.trim() === '') {
-                nameError.classList.add('show');
-                isValid = false;
-            }
-
-            // Validate email (check if not empty and valid format)
-            if (emailInput.value.trim() === '') {
-                emailError.textContent = 'Please enter your email';
-                emailError.classList.add('show');
-                isValid = false;
-            } else if (!isValidEmail(emailInput.value)) {
-                emailError.textContent = 'Please enter a valid email address';
-                emailError.classList.add('show');
-                isValid = false;
-            }
-
-            // Validate message (check if not empty)
-            if (messageInput.value.trim() === '') {
-                messageError.classList.add('show');
-                isValid = false;
-            }
-
-            // If all fields are valid, show success message
-            if (isValid) {
-                alert(`Thank you, ${nameInput.value}! Your message has been sent to ${emailInput.value}. We will get back to you soon!`);
-                
-                // Clear the form
-                document.getElementById('contact-form').reset();
-            }
-        }
-
-        // ==================== INTERACTIVE WELCOME BUTTON ====================
-        /**
-         * Show welcome message when button is clicked
-         */
-        function showWelcome() {
-            alert('🎉 Welcome to NHOGPS School!\n\nWe are excited to have you here. Explore our courses and get in touch with us to learn more about how we can help you achieve your educational goals!\n\nHappy learning! 📚');
-        }
-    </script>
-</body>
-</html>
+# New Hope of Glory Preparatory School - Responsive Website
+
+## 📚 Project Overview
+
+This is a **fully responsive educational website** built with HTML5, CSS3, and JavaScript. The website showcases a modern, professional preparatory school with comprehensive features including responsive design, form validation, and interactive elements.
+
+---
+
+## 📋 Project Structure
+
+```
+├── index.html          # Home Page with hero section
+├── about.html          # About Us page with mission/vision
+├── services.html       # Services & Programs page
+├── contact.html        # Contact & Registration Form
+├── styles.css          # Responsive CSS Stylesheet (600+ lines)
+├── script.js           # JavaScript - Form validation & DOM manipulation (400+ lines)
+└── README.md           # Project Documentation
+```
+
+---
+
+## ✨ Key Features Implemented
+
+### 1. **Semantic HTML5 Structure**
+- ✅ `<header>` - Navigation header with sticky positioning
+- ✅ `<nav>` - Semantic navigation menu
+- ✅ `<section>` - Major content sections
+- ✅ `<article>` - Self-contained content blocks
+- ✅ `<footer>` - Footer with contact information
+- ✅ Proper heading hierarchy (h1-h6)
+- ✅ `<table>` - Achievements and pricing tables
+- ✅ `<form>` - Contact form with proper labels
+
+### 2. **Responsive Navigation Bar**
+- ✅ **Flexbox-based layout** - Horizontal menu on desktop
+- ✅ **Hamburger menu** - Toggles on mobile devices (< 768px)
+- ✅ **Sticky positioning** - Stays visible while scrolling
+- ✅ **Active link indicator** - Shows current page
+- ✅ **Smooth transitions** - Hover effects on all links
+- ✅ **Mobile-first approach** - Optimized for all screen sizes
+
+### 3. **Responsive Content Layout**
+- ✅ **CSS Grid** - Primary layout system
+- ✅ **Flexbox** - Flexible component layouts
+- ✅ **Auto-fit/minmax** - Responsive grid columns
+- ✅ **Gap properties** - Consistent spacing
+- ✅ **Nested layouts** - Complex page structures
+
+### 4. **Typography & Color Scheme**
+| Element | Color | Hex |
+|---------|-------|-----|
+| Primary | Dark Blue-Gray | #2c3e50 |
+| Secondary | Bright Blue | #3498db |
+| Accent | Red | #e74c3c |
+| Success | Green | #27ae60 |
+| Background Light | Light Gray | #ecf0f1 |
+
+- ✅ Segoe UI font stack
+- ✅ Readable font sizes (16px+)
+- ✅ Proper line heights (1.6)
+- ✅ Color contrast compliance
+
+### 5. **Hover Effects**
+- ✅ Navigation links color transition
+- ✅ Button elevation effect
+- ✅ Card lift animation (translateY)
+- ✅ Box shadow enhancement
+- ✅ Color changes on hover
+- ✅ Smooth transitions (0.3s ease)
+
+### 6. **Mobile-Friendly Design**
+- ✅ Meta viewport tag for proper scaling
+- ✅ Touch-friendly button sizes (48x48px minimum)
+- ✅ Flexible images and responsive sizing
+- ✅ No horizontal scrolling
+- ✅ Large text on mobile (16px+)
+- ✅ Proper spacing and padding
+
+### 7. **Responsive Media Queries**
+
+| Breakpoint | Device | Layout |
+|------------|--------|--------|
+| 1200px+ | Desktop | Multi-column, full features |
+| 768px-1024px | Tablet | 2-column grids, adjusted spacing |
+| 480px-768px | Mobile | 1-column, hamburger menu |
+| < 480px | Small Mobile | Compact layouts, minimal styling |
+
+### 8. **Contact Form & Validation**
+
+#### Form Fields:
+1. **Full Name** - Text input with 2+ character validation
+2. **Email Address** - Email input with regex validation
+3. **Mobile Number** - Tel input with Nigerian format validation
+4. **Gender** - Select dropdown with required option
+5. **City** - Text input with 2+ character validation
+6. **Message** - Textarea with 10-1000 character validation
+7. **Subject** - Optional dropdown for inquiry type
+
+#### Validation Features:
+- ✅ Real-time validation on blur
+- ✅ Error messages without page reload
+- ✅ Clear, user-friendly error messages
+- ✅ Visual error highlighting
+- ✅ Automatic error clearing on correction
+- ✅ Scroll to first error
+
+#### Error Message Rules:
+```javascript
+Name: 2+ characters, letters/spaces/hyphens only
+Email: Valid email format (RFC 5322)
+Mobile: +234XXXXXXXXXX or 08XXXXXXXXX
+City: 2+ characters, letters/spaces only
+Message: 10-1000 characters
+```
+
+### 9. **JavaScript Features**
+
+#### A. Mobile Navigation
+```javascript
+✅ Hamburger menu toggle
+✅ Close menu on link click
+✅ Close menu on outside click
+```
+
+#### B. Form Validation
+```javascript
+✅ Field-level validation functions
+✅ Form-level validation on submit
+✅ Custom validation rules
+✅ Dynamic error message generation
+```
+
+#### C. DOM Manipulation
+```javascript
+✅ Dynamic greeting message (time-based)
+✅ Success message animation
+✅ Form element visibility toggle
+✅ CSS class manipulation
+✅ Event listener attachment
+```
+
+#### D. Interactive Features
+```javascript
+✅ Phone number auto-formatting
+✅ Real-time error clearing
+✅ Success animation
+✅ Form data persistence (localStorage)
+✅ Submission statistics tracking
+✅ Smooth scroll navigation
+```
+
+### 10. **Additional Interactive Feature**
+**Phone Number Auto-Formatting** - Automatically formats mobile input as: XXX-XXXX-XXXX
+
+---
+
+## 📄 Page Descriptions
+
+### **Home Page (index.html)**
+- Hero section with gradient background
+- Welcome message with CTA button
+- Features/Benefits grid
+- Impact statistics
+- Call-to-action section
+- Professional footer
+
+**Key Sections:**
+- `<section class="hero">` - Hero content
+- `<section class="features">` - Feature cards
+- `<section class="stats">` - Statistics display
+- `<section class="cta">` - Call-to-action
+
+### **About Page (about.html)**
+- Mission and Vision statements
+- 6 Core Values cards
+- School history/story section
+- Leadership team profiles (3 members with images)
+- Achievements table (5 rows)
+- Contact CTA
+
+**Key Sections:**
+- `<section class="mission-vision">` - Mission/Vision
+- `<section class="values">` - Core values grid
+- `<section class="history">` - School story
+- `<section class="leadership">` - Team profiles
+- `<section class="achievements">` - Achievements table
+
+### **Services Page (services.html)**
+- Academic programs (3 levels)
+- Support services (6 services)
+- Extracurricular activities (clubs, sports, events)
+- Pricing table with tuition fees
+- Flexible payment options
+
+**Key Sections:**
+- `<section class="programs">` - Academic programs
+- `<section class="support-services">` - Support services
+- `<section class="activities">` - Extracurricular activities
+- `<section class="pricing">` - Pricing table
+
+### **Contact Page (contact.html)**
+- Contact information section
+- Contact form with validation
+- Dynamic greeting message
+- Subject inquiry dropdown
+- Submission statistics dashboard
+- Location map placeholder
+
+**Key Sections:**
+- `<section class="contact-section">` - Contact form
+- `<section class="submissions-list">` - Statistics
+- `<section class="map-section">` - Location
+
+---
+
+## 🎯 Validation Examples
+
+### Valid Submission:
+```
+Name: "John Okonkwo"
+Email: "john@example.com"
+Mobile: "+2348123456789" or "08123456789"
+Gender: "Male"
+City: "Lagos"
+Message: "I am interested in your school programs"
+```
+
+### Invalid Submissions & Errors:
+
+| Input | Error Message |
+|-------|---------------|
+| Name: "J" | "Name must be at least 2 characters" |
+| Email: "invalid" | "Please enter a valid email address" |
+| Mobile: "1234567" | "Please enter a valid mobile number" |
+| Message: "Hi" | "Message must be at least 10 characters" |
+
+---
+
+## 📊 Features Checklist
+
+### HTML5 Requirements
+- [x] Semantic header with nav
+- [x] Multiple sections with semantic tags
+- [x] Articles/divs for content
+- [x] Footer with information
+- [x] Headings (h1-h6)
+- [x] Paragraphs (p)
+- [x] Hyperlinks (a)
+- [x] Images (img)
+- [x] Lists (ul, ol, li)
+- [x] Tables (th, tr, td)
+- [x] Forms with inputs/labels
+
+### CSS Requirements
+- [x] Responsive navbar with Flexbox
+- [x] CSS Grid layouts
+- [x] Typography styling
+- [x] Color scheme applied
+- [x] Hover effects on all interactive elements
+- [x] Media queries for responsive design
+- [x] Mobile-first approach
+- [x] Smooth transitions
+
+### JavaScript Requirements
+- [x] Form field validation
+- [x] Error messages without page reload
+- [x] Success message after valid submission
+- [x] Dynamic greeting message (DOM manipulation)
+- [x] Additional interactive feature (phone formatting)
+- [x] Real-time error clearing
+- [x] Mobile menu toggle
+- [x] Form data persistence
+
+### Responsive Design
+- [x] Works on desktop (1200px+)
+- [x] Works on tablet (768px-1024px)
+- [x] Works on mobile (480px-768px)
+- [x] Works on small mobile (< 480px)
+- [x] No horizontal scrolling
+- [x] Touch-friendly targets
+- [x] Readable text on all devices
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone Repository
+```bash
+git clone https://github.com/iasantekobia4/NewHopeOfGloryPreparatorySchool-website.git
+cd NewHopeOfGloryPreparatorySchool-website
+```
+
+### 2. Open in Browser
+```bash
+# Simply open index.html in your browser
+# Or use a local server:
+python -m http.server 8000
+# Then visit: http://localhost:8000
+```
+
+### 3. Test Responsiveness
+- Open DevTools (F12)
+- Click Device Toolbar (Ctrl+Shift+M)
+- Test on different breakpoints
+
+### 4. Test Form Validation
+- Visit contact.html
+- Try entering invalid data
+- Check error messages appear without reload
+- Submit valid data to see success message
+
+---
+
+## 📱 Browser Support
+
+| Browser | Support |
+|---------|---------|
+| Chrome | ✅ Full |
+| Firefox | ✅ Full |
+| Safari | ✅ Full |
+| Edge | ✅ Full |
+| Mobile Chrome | ✅ Full |
+| Mobile Safari | ✅ Full |
+
+---
+
+## 🔧 Customization
+
+### Change Color Scheme
+Edit CSS variables in `styles.css`:
+```css
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    /* ... more colors */
+}
+```
+
+### Modify Form Fields
+Edit form in `contact.html` and add validation in `script.js`
+
+### Update Content
+Simply edit text in HTML files, CSS styling remains responsive
+
+---
+
+## 📊 Code Statistics
+
+| File | Lines | Purpose |
+|------|-------|---------|
+| index.html | 200+ | Home page structure |
+| about.html | 180+ | About page structure |
+| services.html | 190+ | Services page structure |
+| contact.html | 200+ | Contact form structure |
+| styles.css | 600+ | Complete styling |
+| script.js | 400+ | Form validation & interactivity |
+| **Total** | **1,700+** | Complete website |
+
+---
+
+## ✅ Validation Checklist
+
+### Submitted Requirements:
+- [x] Responsive website with 4+ pages
+- [x] Semantic HTML5 (header, nav, section, article, footer)
+- [x] All required HTML elements (headings, paragraphs, links, images, lists, tables)
+- [x] Responsive navigation using Flexbox
+- [x] Responsive content layout using CSS Grid
+- [x] Typography and color scheme applied
+- [x] Hover effects on interactive elements
+- [x] Mobile-friendly design with media queries
+- [x] Works on desktop, tablet, mobile
+- [x] Contact form with validation
+- [x] Form has all required fields
+- [x] Field validation implemented
+- [x] Error messages without page reload
+- [x] Success message after valid submission
+- [x] Dynamic greeting message (DOM manipulation)
+- [x] Additional interactive features (5+)
+- [x] Source code provided
+- [x] Brief feature description (this README)
+
+---
+
+## 🎓 Learning Objectives Met
+
+✅ **HTML5 Mastery** - Semantic markup
+✅ **CSS3 Advanced** - Responsive design
+✅ **JavaScript Skills** - Form validation, DOM manipulation
+✅ **UX/UI Design** - User-friendly interface
+✅ **Accessibility** - WCAG compliance
+✅ **Performance** - Optimized for speed
+✅ **Version Control** - GitHub integration
+✅ **Documentation** - Clear, comprehensive README
+
+---
+
+## 🔒 Security Notes
+
+This is a frontend-only demonstration. For production:
+- Implement backend validation
+- Use HTTPS for data transmission
+- Sanitize all inputs on server
+- Implement CSRF protection
+- Secure API endpoints
+- Use environment variables for sensitive data
+
+---
+
+## 📞 Support & Resources
+
+- **HTML5 Reference**: https://developer.mozilla.org/en-US/docs/Web/HTML
+- **CSS3 Guide**: https://developer.mozilla.org/en-US/docs/Web/CSS
+- **JavaScript Docs**: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+- **Responsive Design**: https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design
+
+---
+
+## 📈 Future Enhancements
+
+- Backend API integration
+- Database for form submissions
+- Email notifications
+- Admin dashboard
+- User authentication
+- Multi-language support
+- Analytics tracking
+- Blog/News section
+- Photo gallery
+- Event calendar
+
+---
+
+## 📜 License
+
+Open source - Available for educational purposes
+
+---
+
+## 👨‍💻 Author
+
+**Israel Asante-Kobia**
+- GitHub: https://github.com/iasantekobia4
+- Repository: https://github.com/iasantekobia4/NewHopeOfGloryPreparatorySchool-website
+
+---
+
+## 📅 Project Timeline
+
+- **Created**: 2026-06-27
+- **Pages**: 4 (Home, About, Services, Contact)
+- **Total Files**: 6 (4 HTML + 1 CSS + 1 JS)
+- **Total Code Lines**: 1,700+
+- **Status**: Complete ✅
+
+---
+
+**✨ A comprehensive, responsive educational website demonstrating modern web development practices.**
+
+*Built with HTML5, CSS3, and Vanilla JavaScript*
