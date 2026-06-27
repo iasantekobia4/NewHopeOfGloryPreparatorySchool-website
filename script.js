@@ -123,10 +123,10 @@ function validateField(field) {
 
             case 'mobile':
                 // Nigerian phone number format validation
-                const phoneRegex = /^(\+233|0)[0-9]{10}$/;
+                const phoneRegex = /^(\+233|0)[0-9]{9}$/;
                 if (!phoneRegex.test(fieldValue.replace(/[\s()-]/g, ''))) {
                     isValid = false;
-                    errorMessage = 'Please enter a valid mobile number (e.g., +233XXXXXXXXXX or 08XXXXXXXXX)';
+                    errorMessage = 'Please enter a valid mobile number (e.g., +233XXXXXXXXXX or 02XXXXXXXXX)';
                 }
                 break;
 
