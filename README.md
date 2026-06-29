@@ -1,4 +1,4 @@
-# New Hope of Glory Preparatory School - Responsive Website
+ # New Hope of Glory Preparatory School - Responsive Website
 
 ## 📚 Project Overview
 
@@ -109,7 +109,7 @@ This is a **fully responsive educational website** built with HTML5, CSS3, and J
 ```javascript
 Name: 2+ characters, letters/spaces/hyphens only
 Email: Valid email format (RFC 5322)
-Mobile: +234XXXXXXXXXX or 08XXXXXXXXX
+Mobile: +233XXXXXXXXXX or 02XXXXXXXXX
 City: 2+ characters, letters/spaces only
 Message: 10-1000 characters
 ```
@@ -220,9 +220,9 @@ Message: 10-1000 characters
 ```
 Name: "John Okonkwo"
 Email: "john@example.com"
-Mobile: "+2348123456789" or "08123456789"
+Mobile: "+233542035632" or "0248851553"
 Gender: "Male"
-City: "Lagos"
+City: "Kumasi"
 Message: "I am interested in your school programs"
 ```
 
